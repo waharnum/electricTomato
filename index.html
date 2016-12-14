@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Electric Tomato</title>
+<script>window.$ = window.jQuery = require('jquery');</script>
+</head>
+<body>
+    <h1>Countdown</h1>
+    <div id="countdown"></div>
+    <form>
+        <div class="buttonContainer"><button id="pomodoro">Pomodoro</button></div>
+        <div class="buttonContainer"><button id="shortBreak">Short Break</button></div>
+        <div class="buttonContainer"><button id="longBreak">Long Break</button></div>
+    </form>
+
+  <script>
+    var timerId;
+
+    var startTimer = function (seconds) {
+        window.clearTimeout(timerId);
+        var countdown = $("#countdown");
+        countdown.text(seconds);
+        currentTime = seconds;
+        timerId = window.setTimeout(decreaseTimer, 1000);
+    };
+
+    var bindClick = function (id, seconds) {
+        $("#"+id).click(function (e) {
+            startTimer(seconds);
+            e.preventDefault();
+        });
+    }
+
+    function decreaseTimer() {
+        var countdown = $("#countdown");
+        currentTime--;
+        countdown.text(currentTime);
+        if(currentTime > 0) {
+            timerId = window.setTimeout(decreaseTimer, 1000)
+        } else {
+            new Notification("Countdown Complete", {title: "Countdown Complete", body: "The countdown is complete"})
+        }
+    };
+
+    bindClick("pomodoro", 25);
+    bindClick("shortBreak", 5);
+    bindClick("longBreak", 15);
+
+  </script>
+</body>
+</html>

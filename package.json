@@ -1,0 +1,15 @@
+{
+  "name": "electricTomato",
+  "version": "0.1.0",
+  "main": "./main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^1.4.12",
+    "electron-prebuilt": "^1.4.12"
+  },
+  "dependencies": {
+    "jquery": "^3.1.1"
+  }
+}
