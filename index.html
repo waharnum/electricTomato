@@ -15,11 +15,12 @@
 
   <script>
     var timerId;
+    var currentTime;
 
     var startTimer = function (seconds) {
         window.clearTimeout(timerId);
         var countdown = $("#countdown");
-        countdown.text(seconds);
+        countdown.text(formatTimer(seconds));
         currentTime = seconds;
         timerId = window.setTimeout(decreaseTimer, 1000);
     };
@@ -29,12 +30,20 @@
             startTimer(seconds);
             e.preventDefault();
         });
-    }
+    };
+
+    // Given a number of seconds, returns a timer minutes/seconds representation
+    var formatTimer = function (seconds) {
+        var minutes = Math.floor(seconds / 60);
+        var seconds = seconds % 60;
+        var displayedSeconds = seconds === 0 ? "00" : seconds;
+        return minutes + ":" + displayedSeconds;
+    };
 
     function decreaseTimer() {
         var countdown = $("#countdown");
         currentTime--;
-        countdown.text(currentTime);
+        countdown.text(formatTimer(currentTime));
         if(currentTime > 0) {
             timerId = window.setTimeout(decreaseTimer, 1000)
         } else {
@@ -42,9 +51,9 @@
         }
     };
 
-    bindClick("pomodoro", 25);
-    bindClick("shortBreak", 5);
-    bindClick("longBreak", 15);
+    bindClick("pomodoro", 25*60);
+    bindClick("shortBreak", 5*60);
+    bindClick("longBreak", 15*60);
 
   </script>
 </body>
