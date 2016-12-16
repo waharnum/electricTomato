@@ -11,21 +11,25 @@
         <div class="buttonContainer"><button id="pomodoro">Pomodoro</button></div>
         <div class="buttonContainer"><button id="shortBreak">Short Break</button></div>
         <div class="buttonContainer"><button id="longBreak">Long Break</button></div>
+        <div class="buttonContainer"><button class="pauseResume">Pause</button></div>
     </form>
 
   <script>
-    var timerId;
-    var currentTime;
-
-    var startTimer = function (seconds) {
-        window.clearTimeout(timerId);
-        var countdown = $("#countdown");
-        countdown.text(formatTimer(seconds));
-        currentTime = seconds;
-        timerId = window.setTimeout(decreaseTimer, 1000);
+    // Global state management object
+    var state = {
+        timerId: null,
+        currentSeconds: null
     };
 
-    var bindClick = function (id, seconds) {
+    var startTimer = function (seconds) {
+        window.clearTimeout(state.timerId);
+        var countdown = $("#countdown");
+        countdown.text(formatTimer(seconds));
+        state.currentSeconds = seconds;
+        state.timerId = window.setTimeout(decreaseTimer, 1000);
+    };
+
+    var bindTimerClick = function (id, seconds) {
         $("#"+id).click(function (e) {
             startTimer(seconds);
             e.preventDefault();
@@ -42,18 +46,18 @@
 
     function decreaseTimer() {
         var countdown = $("#countdown");
-        currentTime--;
-        countdown.text(formatTimer(currentTime));
-        if(currentTime > 0) {
-            timerId = window.setTimeout(decreaseTimer, 1000)
+        state.currentSeconds--;
+        countdown.text(formatTimer(state.currentSeconds));
+        if(state.currentSeconds > 0) {
+            state.timerId = window.setTimeout(decreaseTimer, 1000)
         } else {
             new Notification("Countdown Complete", {title: "Countdown Complete", body: "The countdown is complete"})
         }
     };
 
-    bindClick("pomodoro", 25*60);
-    bindClick("shortBreak", 5*60);
-    bindClick("longBreak", 15*60);
+    bindTimerClick("pomodoro", 25*60);
+    bindTimerClick("shortBreak", 5*60);
+    bindTimerClick("longBreak", 15*60);
 
   </script>
 </body>
