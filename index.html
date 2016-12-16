@@ -11,27 +11,53 @@
         <div class="buttonContainer"><button id="pomodoro">Pomodoro</button></div>
         <div class="buttonContainer"><button id="shortBreak">Short Break</button></div>
         <div class="buttonContainer"><button id="longBreak">Long Break</button></div>
-        <div class="buttonContainer"><button class="pauseResume">Pause</button></div>
+        <div class="buttonContainer"><button id="pauseResume">Pause / Resume</button></div>
     </form>
 
   <script>
-    // Global state management object
-    var state = {
+    // Global timerState management object
+    var timerState = {
         timerId: null,
-        currentSeconds: null
+        currentSeconds: null,
+        isPaused: false
     };
 
     var startTimer = function (seconds) {
-        window.clearTimeout(state.timerId);
+        window.clearTimeout(timerState.timerId);
         var countdown = $("#countdown");
         countdown.text(formatTimer(seconds));
-        state.currentSeconds = seconds;
-        state.timerId = window.setTimeout(decreaseTimer, 1000);
+        timerState.currentSeconds = seconds;
+        timerState.timerId = window.setTimeout(decreaseTimer, 1000);
+    };
+
+    var pauseTimer = function () {
+        window.clearTimeout(timerState.timerId);
+        timerState.isPaused = true;
+    };
+
+    var resumeTimer = function () {
+        window.setTimeout(decreaseTimer, 1000);
+        timerState.isPaused = false;
     };
 
     var bindTimerClick = function (id, seconds) {
         $("#"+id).click(function (e) {
             startTimer(seconds);
+            e.preventDefault();
+        });
+    };
+
+    var bindPauseClick = function () {
+        $("#pauseResume").click(function (e) {
+            console.log(timerState.isPaused);
+            if(! timerState.isPaused) {
+                console.log("pause")
+                pauseTimer();
+            }
+            else if(timerState.isPaused) {
+                console.log("resume")
+                resumeTimer();
+            }
             e.preventDefault();
         });
     };
@@ -46,10 +72,10 @@
 
     function decreaseTimer() {
         var countdown = $("#countdown");
-        state.currentSeconds--;
-        countdown.text(formatTimer(state.currentSeconds));
-        if(state.currentSeconds > 0) {
-            state.timerId = window.setTimeout(decreaseTimer, 1000)
+        timerState.currentSeconds--;
+        countdown.text(formatTimer(timerState.currentSeconds));
+        if(timerState.currentSeconds > 0) {
+            timerState.timerId = window.setTimeout(decreaseTimer, 1000)
         } else {
             new Notification("Countdown Complete", {title: "Countdown Complete", body: "The countdown is complete"})
         }
@@ -58,6 +84,7 @@
     bindTimerClick("pomodoro", 25*60);
     bindTimerClick("shortBreak", 5*60);
     bindTimerClick("longBreak", 15*60);
+    bindPauseClick();
 
   </script>
 </body>
