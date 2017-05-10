@@ -22,6 +22,14 @@
         isPaused: false
     };
 
+    var setPauseResumeText = function () {
+        if(timerState.isPaused) {
+            $("#pauseResume").text("Resume");
+        } else {
+            $("#pauseResume").text("Pause");
+        }
+    }
+
     var startTimer = function (seconds) {
         window.clearTimeout(timerState.timerId);
         var countdown = $("#countdown");
@@ -34,10 +42,12 @@
     var pauseTimer = function () {
         window.clearTimeout(timerState.timerId);
         timerState.isPaused = true;
+        setPauseResumeText();
     };
 
     var resumeTimer = function () {
         startTimer(timerState.currentSeconds);
+        setPauseResumeText();
     };
 
     var bindTimerClick = function (id, seconds) {
@@ -47,7 +57,7 @@
         });
     };
 
-    var bindPauseClick = function () {
+    var bindPauseResumeClick = function () {
         $("#pauseResume").click(function (e) {
             console.log(timerState.isPaused);
             if(! timerState.isPaused) {
@@ -84,7 +94,8 @@
     bindTimerClick("pomodoro", 25*60);
     bindTimerClick("shortBreak", 5*60);
     bindTimerClick("longBreak", 15*60);
-    bindPauseClick();
+    setPauseResumeText();
+    bindPauseResumeClick();
 
   </script>
 </body>
