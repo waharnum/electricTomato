@@ -28,6 +28,7 @@
         countdown.text(formatTimer(seconds));
         timerState.currentSeconds = seconds;
         timerState.timerId = window.setTimeout(decreaseTimer, 1000);
+        timerState.isPaused = false;
     };
 
     var pauseTimer = function () {
@@ -37,7 +38,6 @@
 
     var resumeTimer = function () {
         startTimer(timerState.currentSeconds);
-        timerState.isPaused = false;
     };
 
     var bindTimerClick = function (id, seconds) {
