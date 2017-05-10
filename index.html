@@ -36,7 +36,7 @@
     };
 
     var resumeTimer = function () {
-        window.setTimeout(decreaseTimer, 1000);
+        startTimer(timerState.currentSeconds);
         timerState.isPaused = false;
     };
 
