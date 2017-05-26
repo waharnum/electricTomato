@@ -74,7 +74,7 @@ var formatTimer = function (seconds) {
     return minutes + ":" + displayedSeconds;
 };
 
-function decreaseTimer() {
+var decreaseTimer = function () {
     var countdown = $("#countdown");
     timerState.currentSeconds--;
     countdown.text(formatTimer(timerState.currentSeconds));
@@ -87,10 +87,14 @@ function decreaseTimer() {
         speechSynthesis.speak(utterance);
         timerState.type = timerTypeStrings.noTimer;
     }
-}
+};
 
-bindTimerClick("pomodoro", 25*60, timerTypeStrings.pomodoro);
-bindTimerClick("shortBreak", 5*60, timerTypeStrings.shortBreak);
-bindTimerClick("longBreak", 15*60, timerTypeStrings.longBreak);
+// Makes testing easier
+// var MINUTE_MULTIPLIER = 1;
+var MINUTE_MULTIPLIER = 60;
+
+bindTimerClick("pomodoro", 25 * MINUTE_MULTIPLIER, timerTypeStrings.pomodoro);
+bindTimerClick("shortBreak", 5 * MINUTE_MULTIPLIER, timerTypeStrings.shortBreak);
+bindTimerClick("longBreak", 15 * MINUTE_MULTIPLIER, timerTypeStrings.longBreak);
 setPauseResumeText();
 bindPauseResumeClick();
