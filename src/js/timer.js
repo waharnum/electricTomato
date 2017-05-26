@@ -1,6 +1,6 @@
 // Makes testing easier
 // var MINUTE_MULTIPLIER = 1;
-var MINUTE_MULTIPLIER = 60;
+var MINUTE_MULTIPLIER = 1;
 
 // Global timerState management object
 
@@ -9,6 +9,13 @@ var timerState = {
     currentSeconds: null,
     isPaused: false,
     type: null
+};
+
+// Global tracking of pomodoro states
+var pomoState = {
+    "Pomodoro": 0,
+    "Short Break": 0,
+    "Long Break": 0
 };
 
 // Global strings for types of timer
@@ -90,8 +97,15 @@ var decreaseTimer = function () {
         new Notification("Countdown Complete", {title: "Timer Done", body: currentType + " is finished"});
         var utterance = new SpeechSynthesisUtterance(currentType + " is finished");
         window.speechSynthesis.speak(utterance);
+
+        updatePomoState(timerState.type);
+
         timerState.type = timerTypeStrings.noTimer;
     }
+};
+
+var updatePomoState = function (type) {
+    pomoState[type]++;
 };
 
 bindTimerClick("pomodoro", 25 * MINUTE_MULTIPLIER, timerTypeStrings.pomodoro);
