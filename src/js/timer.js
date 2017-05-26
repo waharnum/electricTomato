@@ -1,4 +1,9 @@
+// Makes testing easier
+// var MINUTE_MULTIPLIER = 1;
+var MINUTE_MULTIPLIER = 60;
+
 // Global timerState management object
+
 var timerState = {
     timerId: null,
     currentSeconds: null,
@@ -6,14 +11,14 @@ var timerState = {
     type: null
 };
 
+// Global strings for types of timer
+
 var timerTypeStrings = {
     noTimer: "No Timer",
     pomodoro: "Pomodoro",
     shortBreak: "Short Break",
     longBreak: "Long Break"
 };
-
-var speechSynthesis = window.speechSynthesis;
 
 var setPauseResumeText = function () {
     if(timerState.isPaused) {
@@ -84,14 +89,10 @@ var decreaseTimer = function () {
         var currentType = timerState.type;
         new Notification("Countdown Complete", {title: "Timer Done", body: currentType + " is finished"});
         var utterance = new SpeechSynthesisUtterance(currentType + " is finished");
-        speechSynthesis.speak(utterance);
+        window.speechSynthesis.speak(utterance);
         timerState.type = timerTypeStrings.noTimer;
     }
 };
-
-// Makes testing easier
-// var MINUTE_MULTIPLIER = 1;
-var MINUTE_MULTIPLIER = 60;
 
 bindTimerClick("pomodoro", 25 * MINUTE_MULTIPLIER, timerTypeStrings.pomodoro);
 bindTimerClick("shortBreak", 5 * MINUTE_MULTIPLIER, timerTypeStrings.shortBreak);

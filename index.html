@@ -2,13 +2,14 @@
 <html>
 <head>
 <title>Electric Tomato</title>
+<link rel="stylesheet" href="src/css/lib/normalize.css">
+<link rel="stylesheet" href="src/css/timer.css">
 <script>window.$ = window.jQuery = require('jquery');</script>
 </head>
 <body>
-    <h1>Countdown</h1>
-    <div id="countdown"></div>
-    <form>
-        <div class="buttonContainer"><button id="pomodoro">Pomodoro</button></div>
+    <div id="countdown">No Timer</div>
+    <form class="timerButtons">
+        <div class="buttonContainer"><button id="pomodoro">Pomo!</button></div>
         <div class="buttonContainer"><button id="shortBreak">Short Break</button></div>
         <div class="buttonContainer"><button id="longBreak">Long Break</button></div>
         <div class="buttonContainer"><button id="pauseResume">Pause / Resume</button></div>

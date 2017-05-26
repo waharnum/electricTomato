@@ -8,7 +8,11 @@ let win
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({width: 400, height: 400})
+  win = new BrowserWindow({
+      width: 200,
+      height: 200,
+      title: "Electric Tomato"
+  });
 
   // and load the index.html of the app.
   win.loadURL(url.format({
