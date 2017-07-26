@@ -1,6 +1,6 @@
 // Makes testing easier
 // var MINUTE_MULTIPLIER = 1;
-var MINUTE_MULTIPLIER = 1;
+var MINUTE_MULTIPLIER = 60;
 
 // Global timerState management object
 
