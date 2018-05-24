@@ -1,6 +1,6 @@
 // Makes testing easier
 // var MINUTE_MULTIPLIER = 1;
-var MINUTE_MULTIPLIER = 60;
+var MINUTE_MULTIPLIER = 0.2;
 
 // Global timerState management object
 
@@ -27,6 +27,10 @@ var timerTypeStrings = {
     longBreak: "Long Break"
 };
 
+var getKeyByValue = function (object, value) {
+  return Object.keys(object).find(key => object[key] === value);
+};
+
 var setPauseResumeText = function () {
     if(timerState.isPaused) {
         $("#pauseResume").text("Resume");
@@ -42,6 +46,7 @@ var startTimer = function (seconds) {
     timerState.currentSeconds = seconds;
     timerState.timerId = window.setTimeout(decreaseTimer, 1000);
     timerState.isPaused = false;
+    setPauseResumeText();
 };
 
 var pauseTimer = function () {
@@ -106,6 +111,11 @@ var decreaseTimer = function () {
 
 var updatePomoState = function (type) {
     pomoState[type]++;
+    var pomoTypeKey = getKeyByValue(timerTypeStrings, type);
+    var counterSelector = "#" + pomoTypeKey + "-count";
+    var counterDisplay = $(counterSelector);
+    var currentCount = parseInt(counterDisplay.text());
+    counterDisplay.text(currentCount + 1);
 };
 
 bindTimerClick("pomodoro", 25 * MINUTE_MULTIPLIER, timerTypeStrings.pomodoro);
