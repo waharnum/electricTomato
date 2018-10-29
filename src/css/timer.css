@@ -1,9 +1,24 @@
+body {
+    background-color: #FAA;
+}
+
 #countdown {
     text-align: center;
     margin-bottom: 10px;
     font-size: 150%;
 }
 
-.buttonContainer {    
+.timerButtons button {
+    background-color: #FFF;
+}
+
+.buttonContainer {
     margin: 0 0 5px 5px;
+}
+
+.pomoDisplay {
+    display: inline-block;
+    background-color: #FFF;
+    padding: 2px;
+    border: 1px dotted black;
 }

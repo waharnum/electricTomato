@@ -1,6 +1,6 @@
 // Makes testing easier
-// var MINUTE_MULTIPLIER = 1;
-var MINUTE_MULTIPLIER = 0.2;
+// var SECONDS_IN_MINUTE = 0.2;
+var SECONDS_IN_MINUTE = 60;
 
 // Global timerState management object
 
@@ -118,8 +118,13 @@ var updatePomoState = function (type) {
     counterDisplay.text(currentCount + 1);
 };
 
-bindTimerClick("pomodoro", 25 * MINUTE_MULTIPLIER, timerTypeStrings.pomodoro);
-bindTimerClick("shortBreak", 5 * MINUTE_MULTIPLIER, timerTypeStrings.shortBreak);
-bindTimerClick("longBreak", 15 * MINUTE_MULTIPLIER, timerTypeStrings.longBreak);
+bindTimerClick("pomodoro", 25 * SECONDS_IN_MINUTE, timerTypeStrings.pomodoro);
+
+bindTimerClick("shortBreak", 5 * SECONDS_IN_MINUTE, timerTypeStrings.shortBreak);
+
+bindTimerClick("longBreak", 15 * SECONDS_IN_MINUTE, timerTypeStrings.longBreak);
+
+
 setPauseResumeText();
+
 bindPauseResumeClick();
