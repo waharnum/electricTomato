@@ -1,6 +1,7 @@
-// Makes testing easier
-// var SECONDS_IN_MINUTE = 0.2;
-var SECONDS_IN_MINUTE = 60;
+// Makes testing easier by increasing speed
+// of timer countdown
+var SECONDS_IN_MINUTE = 1;
+// var SECONDS_IN_MINUTE = 60;
 
 // Global timerState management object
 
@@ -87,7 +88,7 @@ var bindPauseResumeClick = function () {
 var formatTimer = function (seconds) {
     var minutes = Math.floor(seconds / 60);
     var secondsRemainder = seconds % 60;
-    var displayedSeconds = secondsRemainder === 0 ? "00" : secondsRemainder;
+    var displayedSeconds = secondsRemainder < 10 ? "0" + secondsRemainder : secondsRemainder;
     return minutes + ":" + displayedSeconds;
 };
 
