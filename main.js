@@ -11,7 +11,8 @@ function createWindow () {
   win = new BrowserWindow({
       width: 200,
       height: 200,
-      title: "Electric Tomato"
+      title: "Electric Tomato",
+      icon: path.join(__dirname, '/icons/png/64x64.png')
   });
 
   // and load the index.html of the app.

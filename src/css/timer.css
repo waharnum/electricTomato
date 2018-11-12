@@ -6,6 +6,8 @@ body {
     text-align: center;
     margin-bottom: 10px;
     font-size: 150%;
+    background-color: #FFF;
+    border-bottom: 1px dotted black;
 }
 
 .timerButtons button {
@@ -19,6 +21,6 @@ body {
 .pomoDisplay {
     display: inline-block;
     background-color: #FFF;
-    padding: 2px;
+    padding: 0 1em 0 1em;    
     border: 1px dotted black;
 }
