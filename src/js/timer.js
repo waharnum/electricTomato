@@ -1,7 +1,7 @@
 // Makes testing easier by increasing speed
 // of timer countdown
-var SECONDS_IN_MINUTE = 1;
-// var SECONDS_IN_MINUTE = 60;
+// var SECONDS_IN_MINUTE = 1;
+var SECONDS_IN_MINUTE = 60;
 
 // Global timerState management object
 
