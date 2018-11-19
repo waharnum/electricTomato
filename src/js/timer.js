@@ -1,7 +1,14 @@
 // Makes testing easier by increasing speed
 // of timer countdown
-// var SECONDS_IN_MINUTE = 1;
+// var SECONDS_IN_MINUTE = 0.25;
 var SECONDS_IN_MINUTE = 60;
+
+// Global tracking of pomodoro states
+var pomoState = {
+    "Pomodoro": 0,
+    "Short Break": 0,
+    "Long Break": 0
+};
 
 // Global timerState management object
 
@@ -9,14 +16,10 @@ var timerState = {
     timerId: null,
     currentSeconds: null,
     isPaused: false,
-    type: null
-};
-
-// Global tracking of pomodoro states
-var pomoState = {
-    "Pomodoro": 0,
-    "Short Break": 0,
-    "Long Break": 0
+    type: null,
+    next: function() {
+        getNext(pomoState);
+    }
 };
 
 // Global strings for types of timer
@@ -26,6 +29,25 @@ var timerTypeStrings = {
     pomodoro: "Pomodoro",
     shortBreak: "Short Break",
     longBreak: "Long Break"
+};
+
+// Figure out the "next" action per the
+// official pomodoro system
+var getNext = function (pomoState) {
+    var numberPomodoro = pomoState["Pomodoro"];
+    var numberShortBreak = pomoState["Short Break"];
+    var numberLongBreak = pomoState["Long Break"];
+
+    if(numberPomodoro > 0 && numberPomodoro % 4 === 0) {
+        return "Long Break"
+    }
+
+    if(numberPomodoro <= numberShortBreak) {
+        return "Pomodoro";
+    }
+    if(numberPomodoro > numberShortBreak) {
+        return "Short Break"
+    }
 };
 
 var getKeyByValue = function (object, value) {
@@ -38,6 +60,10 @@ var setPauseResumeText = function () {
     } else {
         $("#pauseResume").text("Pause");
     }
+};
+
+var setNextText = function () {
+    $("#next").text(getNext(pomoState));
 };
 
 var startTimer = function (seconds) {
@@ -63,6 +89,7 @@ var resumeTimer = function () {
 
 var bindTimerClick = function (id, seconds, typeString) {
     $("#"+id).click(function (e) {
+        $("#next").text("Timing...");
         startTimer(seconds);
         timerState.type = typeString;
         e.preventDefault();
@@ -117,6 +144,7 @@ var updatePomoState = function (type) {
     var counterDisplay = $(counterSelector);
     var currentCount = parseInt(counterDisplay.text());
     counterDisplay.text(currentCount + 1);
+    setNextText();
 };
 
 bindTimerClick("pomodoro", 25 * SECONDS_IN_MINUTE, timerTypeStrings.pomodoro);
@@ -127,5 +155,7 @@ bindTimerClick("longBreak", 15 * SECONDS_IN_MINUTE, timerTypeStrings.longBreak);
 
 
 setPauseResumeText();
+
+setNextText();
 
 bindPauseResumeClick();

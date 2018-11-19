@@ -10,7 +10,7 @@ function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({
       width: 200,
-      height: 200,
+      height: 250,
       title: "Electric Tomato",
       icon: path.join(__dirname, '/icons/png/64x64.png')
   });
